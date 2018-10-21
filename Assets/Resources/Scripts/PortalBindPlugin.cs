@@ -4,19 +4,26 @@ using ProBuilder2.Common;
 using UnityEngine;
 
 public class PortalBindPlugin : MonoBehaviour
-{
+{	
+	#region Singleton
 
-	public Portal PortalA;
-	public Portal PortalB;
+	private static PortalBindPlugin _instance;
 	
-	void Update () {
-		if (Input.GetKeyUp(KeyCode.K))
+	public static PortalBindPlugin Instance { get { return _instance; } }
+
+	private void Awake()
+	{
+		if (_instance != null && _instance != this)
 		{
-			BindPortals();
+			Destroy(this.gameObject);
+		} else {
+			_instance = this;
 		}
 	}
 
-	void BindPortals()
+	#endregion
+
+	public void BindPortals(Portal PortalA, Portal PortalB)
 	{
 		if (PortalA.Camera.targetTexture != null)
 		{

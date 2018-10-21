@@ -700,11 +700,21 @@
             </e>
           </e>
         </e>
-        <e p="ScreenCutoutShader.shader" t="Include" />
-        <e p="Scripts" t="Include">
-          <e p="PortalCamera.cs" t="Include" />
-          <e p="PortalTeleporter.cs" t="Include" />
-          <e p="PortalTextureSetup.cs" t="Include" />
+        <e p="Resources" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="Crosshair.cs" t="Include" />
+            <e p="MessageBus.cs" t="Include" />
+            <e p="PicturePlugin.cs" t="Include" />
+            <e p="PlayerInteract.cs" t="Include" />
+            <e p="Portal.cs" t="Include" />
+            <e p="PortalBindPlugin.cs" t="Include" />
+            <e p="PortalCamera.cs" t="Include" />
+            <e p="PortalTeleporter.cs" t="Include" />
+            <e p="PortalTextureSetup.cs" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="ScreenCutoutShader.shader" t="Include" />
+          </e>
         </e>
         <e p="Standard Assets" t="Include">
           <e p="Characters" t="Include">
