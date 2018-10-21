@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class PortalTeleporter : MonoBehaviour {
 
-	public Transform player;
 	public Transform reciever;
 
+	private Transform player;
+	
 	private bool playerIsOverlapping = false;
 
-	// Update is called once per frame
+
+	void Start()
+	{
+		player = GameObject.Find("Player").transform;
+	}
+	
 	void Update () {
-		if (playerIsOverlapping)
+		if (playerIsOverlapping && reciever)
 		{
 			Vector3 portalToPlayer = player.position - transform.position;
 			float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
