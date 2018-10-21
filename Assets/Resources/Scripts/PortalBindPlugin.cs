@@ -45,8 +45,8 @@ public class PortalBindPlugin : MonoBehaviour
 
 		print("Renderers are created");
 		
-		PortalA.Teleporter.reciever = PortalB.Receiver;
-		PortalB.Teleporter.reciever = PortalA.Receiver;
+		PortalA.Teleporter.Receiver = PortalB.Receiver;
+		PortalB.Teleporter.Receiver = PortalA.Receiver;
 
 		print("Colliders are set");
 		
