@@ -10,4 +10,5 @@ public class Portal : MonoBehaviour
 	public MeshRenderer Renderer;
 	public PortalTeleporter Teleporter;
 	public PortalCamera CameraMover;
+	public Portal ConnectedPortal;
 }

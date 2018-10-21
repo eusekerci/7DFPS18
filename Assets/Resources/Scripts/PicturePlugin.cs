@@ -54,6 +54,7 @@ public class PicturePlugin : MonoBehaviour
 					{
 						PortalBindPlugin.Instance.BindPortals(_linkedPortal, Portals[i]);
 						_isLinkerSelected = false;
+						_linkedPortal = null;
 						print("Linker Matched = " + i);
 						break;
 					}
@@ -63,7 +64,8 @@ public class PicturePlugin : MonoBehaviour
 		
 		MessageBus.OnEvent<PlayerLinkerReset>().Subscribe(evnt =>
 		{
-			_isLinkerSelected = false; 
+			_isLinkerSelected = false;
+			_linkedPortal = null;
 			print("Linkers are free");
 		});
 

@@ -22,9 +22,18 @@ public class PortalBindPlugin : MonoBehaviour
 	}
 
 	#endregion
-
+	
 	public void BindPortals(Portal PortalA, Portal PortalB)
 	{
+		if (PortalA.ConnectedPortal != null)
+		{
+			ResetPortal(PortalA.ConnectedPortal);
+		}
+		if (PortalB.ConnectedPortal != null)
+		{
+			ResetPortal(PortalB.ConnectedPortal);
+		}
+		
 		if (PortalA.Camera.targetTexture != null)
 		{
 			PortalA.Camera.targetTexture.Release();
@@ -55,7 +64,25 @@ public class PortalBindPlugin : MonoBehaviour
 		
 		PortalB.CameraMover.portal = PortalA.Root;
 		PortalB.CameraMover.otherPortal = PortalB.Root;
+
+		PortalA.ConnectedPortal = PortalB;
+		PortalB.ConnectedPortal = PortalA;
 		
 		print("Portals are ready");
+	}
+
+	public void ResetPortal(Portal PortalA)
+	{
+		if (PortalA.Camera.targetTexture != null)
+		{
+			PortalA.Camera.targetTexture.Release();
+		}
+
+		PortalA.Teleporter.Receiver = null;
+		PortalA.Renderer.material = null;
+		PortalA.Renderer.material = new Material(Resources.Load<Material>("Materials/DoorBlack"));
+		PortalA.Renderer.material.mainTexture = null;
+
+		PortalA.ConnectedPortal = null;
 	}
 }
