@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using System;
+
 
 public class PortalTeleporter : MonoBehaviour {
 
 	public Transform Receiver;
 
 	private Transform player;
+	private Transform _playerCamera;
 	private bool playerIsOverlapping = false;
 
 	void Start()
 	{
 		player = GameObject.Find("Player").transform;
+		_playerCamera = player.GetComponentInChildren<Camera>().transform;
 	}
 	
 	void LateUpdate () 
@@ -27,11 +31,10 @@ public class PortalTeleporter : MonoBehaviour {
 			{
 				// Teleport him!
 				float rotationDiff = -Quaternion.Angle(transform.rotation, Receiver.rotation);
-				rotationDiff += 180;	
+				if(IsAdjustmentNeeded(transform, Receiver))
+					rotationDiff += 180;	
 
-				print(player.rotation.eulerAngles + " " + rotationDiff);
 				player.Rotate(Vector3.up, rotationDiff);
-				print(player.rotation.eulerAngles + " " + rotationDiff);
 
 				Vector3 positionOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
 				player.position = Receiver.position + positionOffset;
@@ -39,6 +42,13 @@ public class PortalTeleporter : MonoBehaviour {
 				playerIsOverlapping = false;
 			}
 		}
+	}
+
+	bool IsAdjustmentNeeded(Transform transformA, Transform transformB)
+	{
+		float angle = Vector3.SignedAngle(transformA.up, transformB.up, Vector3.up);
+
+		return angle < 0.1f || angle > 179.9f;
 	}
 
 	void OnTriggerEnter (Collider other)
