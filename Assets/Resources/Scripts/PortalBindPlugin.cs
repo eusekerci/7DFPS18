@@ -61,9 +61,13 @@ public class PortalBindPlugin : MonoBehaviour
 		
 		PortalA.CameraMover.portal = PortalB.Root;
 		PortalA.CameraMover.otherPortal = PortalA.Root;
+		PortalA.CameraMover.renderer = PortalA.Renderer.transform;
+		PortalA.CameraMover.otherRenderer = PortalB.Renderer.transform;
 		
 		PortalB.CameraMover.portal = PortalA.Root;
 		PortalB.CameraMover.otherPortal = PortalB.Root;
+		PortalB.CameraMover.renderer = PortalB.Renderer.transform;
+		PortalB.CameraMover.otherRenderer = PortalA.Renderer.transform;
 
 		PortalA.ConnectedPortal = PortalB;
 		PortalB.ConnectedPortal = PortalA;
