@@ -87,6 +87,11 @@ public class PortalBindPlugin : MonoBehaviour
 		PortalA.Renderer.material = new Material(Resources.Load<Material>("Materials/DoorBlack"));
 		PortalA.Renderer.material.mainTexture = null;
 
+		PortalA.CameraMover.portal = null;
+		PortalA.CameraMover.otherPortal = null;
+		PortalA.CameraMover.renderer = null;
+		PortalA.CameraMover.otherRenderer = null;
+
 		PortalA.ConnectedPortal = null;
 	}
 }

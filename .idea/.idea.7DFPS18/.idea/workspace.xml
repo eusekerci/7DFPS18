@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfaad032-f2dd-435e-9950-0261ff673bea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.7DFPS18/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.7DFPS18/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Scripts/PortalBindPlugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Scripts/PortalBindPlugin.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Scripts/PortalCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Scripts/PortalCamera.cs" afterDir="false" />
     </list>
@@ -39,12 +37,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cs" value="5035" />
+          <entry key="cs" value="5246" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="C#" value="5035" />
+          <entry key="C#" value="5246" />
         </counts>
       </usages-collector>
     </session>
@@ -117,39 +115,39 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/Resources/Scripts/PortalBindPlugin.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="69" column="41" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
+            <state relative-caret-position="801">
+              <caret line="92" column="49" lean-forward="true" selection-start-line="92" selection-start-column="49" selection-end-line="92" selection-end-column="49" />
               <folding>
-                <marker date="1540249971581" expanded="false" signature="6:104" ph="..." />
-                <marker date="1540249971581" expanded="true" signature="151:2588" ph="{...}" />
-                <marker date="1540249971581" expanded="false" signature="156:448" ph="Singleton" />
-                <marker date="1540249971581" expanded="true" signature="314:435" ph="{...}" />
-                <marker date="1540249971581" expanded="true" signature="363:400" ph="{...}" />
-                <marker date="1540249971581" expanded="true" signature="507:2192" ph="{...}" />
-                <marker date="1540249971581" expanded="true" signature="549:598" ph="{...}" />
-                <marker date="1540249971581" expanded="true" signature="637:686" ph="{...}" />
-                <marker date="1540249971581" expanded="true" signature="733:784" ph="{...}" />
-                <marker date="1540249971581" expanded="true" signature="1120:1171" ph="{...}" />
-                <marker date="1540249971581" expanded="true" signature="2234:2586" ph="{...}" />
-                <marker date="1540249971581" expanded="true" signature="2281:2332" ph="{...}" />
+                <marker date="1540251573731" expanded="false" signature="6:104" ph="..." />
+                <marker date="1540251573731" expanded="true" signature="151:2751" ph="{...}" />
+                <marker date="1540251573731" expanded="false" signature="156:448" ph="Singleton" />
+                <marker date="1540251573731" expanded="true" signature="314:435" ph="{...}" />
+                <marker date="1540251573731" expanded="true" signature="363:400" ph="{...}" />
+                <marker date="1540251573731" expanded="true" signature="507:2192" ph="{...}" />
+                <marker date="1540251573731" expanded="true" signature="549:598" ph="{...}" />
+                <marker date="1540251573731" expanded="true" signature="637:686" ph="{...}" />
+                <marker date="1540251573731" expanded="true" signature="733:784" ph="{...}" />
+                <marker date="1540251573731" expanded="true" signature="1120:1171" ph="{...}" />
+                <marker date="1540251573731" expanded="true" signature="2234:2749" ph="{...}" />
+                <marker date="1540251573731" expanded="true" signature="2281:2332" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Resources/Scripts/PortalCamera.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+            <state relative-caret-position="384">
+              <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="66" />
               <folding>
-                <marker date="1540250442963" expanded="false" signature="6:78" ph="..." />
-                <marker date="1540250442963" expanded="true" signature="121:1257" ph="{...}" />
-                <marker date="1540250442963" expanded="true" signature="291:337" ph="{...}" />
-                <marker date="1540250442963" expanded="true" signature="356:1255" ph="{...}" />
+                <marker date="1540251538249" expanded="false" signature="6:78" ph="..." />
+                <marker date="1540251538249" expanded="true" signature="121:1357" ph="{...}" />
+                <marker date="1540251538249" expanded="true" signature="480:526" ph="{...}" />
+                <marker date="1540251538249" expanded="true" signature="545:1355" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -322,8 +320,8 @@
         <option value="$PROJECT_DIR$/Assets/Resources/Scripts/FPSExtension.cs" />
         <option value="$PROJECT_DIR$/Assets/Resources/Scripts/PortalTeleporter.cs" />
         <option value="$PROJECT_DIR$/Assets/Resources/Scripts/Portal.cs" />
-        <option value="$PROJECT_DIR$/Assets/Resources/Scripts/PortalBindPlugin.cs" />
         <option value="$PROJECT_DIR$/Assets/Resources/Scripts/PortalCamera.cs" />
+        <option value="$PROJECT_DIR$/Assets/Resources/Scripts/PortalBindPlugin.cs" />
       </list>
     </option>
   </component>
@@ -412,7 +410,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35759000" />
+    <option name="totallyTimeSpent" value="36558000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1012,36 +1010,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Resources/Scripts/PortalBindPlugin.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/Resources/Scripts/PortalCamera.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="69" column="41" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
+        <state relative-caret-position="384">
+          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="66" />
           <folding>
-            <marker date="1540249971581" expanded="false" signature="6:104" ph="..." />
-            <marker date="1540249971581" expanded="true" signature="151:2588" ph="{...}" />
-            <marker date="1540249971581" expanded="false" signature="156:448" ph="Singleton" />
-            <marker date="1540249971581" expanded="true" signature="314:435" ph="{...}" />
-            <marker date="1540249971581" expanded="true" signature="363:400" ph="{...}" />
-            <marker date="1540249971581" expanded="true" signature="507:2192" ph="{...}" />
-            <marker date="1540249971581" expanded="true" signature="549:598" ph="{...}" />
-            <marker date="1540249971581" expanded="true" signature="637:686" ph="{...}" />
-            <marker date="1540249971581" expanded="true" signature="733:784" ph="{...}" />
-            <marker date="1540249971581" expanded="true" signature="1120:1171" ph="{...}" />
-            <marker date="1540249971581" expanded="true" signature="2234:2586" ph="{...}" />
-            <marker date="1540249971581" expanded="true" signature="2281:2332" ph="{...}" />
+            <marker date="1540251538249" expanded="false" signature="6:78" ph="..." />
+            <marker date="1540251538249" expanded="true" signature="121:1357" ph="{...}" />
+            <marker date="1540251538249" expanded="true" signature="480:526" ph="{...}" />
+            <marker date="1540251538249" expanded="true" signature="545:1355" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Resources/Scripts/PortalCamera.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/Resources/Scripts/PortalBindPlugin.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+        <state relative-caret-position="801">
+          <caret line="92" column="49" lean-forward="true" selection-start-line="92" selection-start-column="49" selection-end-line="92" selection-end-column="49" />
           <folding>
-            <marker date="1540250442963" expanded="false" signature="6:78" ph="..." />
-            <marker date="1540250442963" expanded="true" signature="121:1257" ph="{...}" />
-            <marker date="1540250442963" expanded="true" signature="291:337" ph="{...}" />
-            <marker date="1540250442963" expanded="true" signature="356:1255" ph="{...}" />
+            <marker date="1540251573731" expanded="false" signature="6:104" ph="..." />
+            <marker date="1540251573731" expanded="true" signature="151:2751" ph="{...}" />
+            <marker date="1540251573731" expanded="false" signature="156:448" ph="Singleton" />
+            <marker date="1540251573731" expanded="true" signature="314:435" ph="{...}" />
+            <marker date="1540251573731" expanded="true" signature="363:400" ph="{...}" />
+            <marker date="1540251573731" expanded="true" signature="507:2192" ph="{...}" />
+            <marker date="1540251573731" expanded="true" signature="549:598" ph="{...}" />
+            <marker date="1540251573731" expanded="true" signature="637:686" ph="{...}" />
+            <marker date="1540251573731" expanded="true" signature="733:784" ph="{...}" />
+            <marker date="1540251573731" expanded="true" signature="1120:1171" ph="{...}" />
+            <marker date="1540251573731" expanded="true" signature="2234:2749" ph="{...}" />
+            <marker date="1540251573731" expanded="true" signature="2281:2332" ph="{...}" />
           </folding>
         </state>
       </provider>
