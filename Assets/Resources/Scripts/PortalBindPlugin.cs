@@ -19,9 +19,19 @@ public class PortalBindPlugin : MonoBehaviour
 		} else {
 			_instance = this;
 		}
+
+		Application.targetFrameRate = 120;
 	}
 
 	#endregion
+
+	public Portal InitA;
+	public Portal InitB;
+	
+	public void Start()
+	{
+		BindPortals(InitA, InitB);
+	}
 	
 	public void BindPortals(Portal PortalA, Portal PortalB)
 	{
