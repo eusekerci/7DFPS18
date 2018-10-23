@@ -7,7 +7,7 @@ public enum PlayerInteractStates
 {
 	Observe, 
 	Drag, 
-	Drop
+	Carry
 };
 
 public class PlayerClickLinker : MyEvent
@@ -20,6 +20,17 @@ public class PlayerDropLinker : MyEvent
 	public Collider Col;
 }
 
+public class PlayerStartCarry : MyEvent
+{
+	public Collider Col;
+}
+
+public class PlayerDropCarry : MyEvent
+{
+	public Vector3 PutPoint;
+	public Vector3 Normal;
+}
+
 public class PlayerLinkerReset : MyEvent { }
 
 public class PlayerInteract : MonoBehaviour
@@ -28,6 +39,7 @@ public class PlayerInteract : MonoBehaviour
 	public float InteractDistance;
 	public Crosshair Crosshair;
 	public PlayerInteractStates State;
+	public LayerMask InteractLayers;
 
 	void Start()
 	{
@@ -39,41 +51,90 @@ public class PlayerInteract : MonoBehaviour
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		
-		if (Physics.Raycast(ray, out hit))
+		if (Physics.Raycast(ray, out hit, InteractDistance, InteractLayers))
 		{
-			if (hit.collider != null && hit.distance < InteractDistance)
+			if (hit.collider != null)
 			{
-				if (hit.collider.CompareTag("Picture"))
+				if (State == PlayerInteractStates.Observe)
+				{
+					if (hit.collider.CompareTag("Picture"))
+					{
+						Crosshair.Hide = false;
+						Crosshair.CrosshairDefault = Crosshair.Crosshair01;
+					}
+					else if (hit.collider.CompareTag("PortalLinker"))
+					{
+						Crosshair.Hide = false;
+						Crosshair.CrosshairDefault = Crosshair.Crosshair02;
+						if (Input.GetMouseButtonDown(0))
+						{
+							State = PlayerInteractStates.Drag;
+
+							MessageBus.Publish(new PlayerClickLinker()
+							{
+								Col = hit.collider
+							});
+						}
+					}
+					else if (hit.collider.CompareTag("Box"))
+					{
+						Crosshair.Hide = false;
+						Crosshair.CrosshairDefault = Crosshair.Crosshair02;
+						if (Input.GetMouseButtonDown(0))
+						{
+							State = PlayerInteractStates.Carry;
+
+							MessageBus.Publish(new PlayerStartCarry()
+							{
+								Col = hit.collider
+							});
+						}
+					}
+					else
+					{
+						Crosshair.Hide = true;
+					}
+				}
+				else if (State == PlayerInteractStates.Carry)
 				{
 					Crosshair.Hide = false;
 					Crosshair.CrosshairDefault = Crosshair.Crosshair01;
-				}
-				else if (hit.collider.CompareTag("PortalLinker"))
-				{
-					Crosshair.Hide = false;
-					Crosshair.CrosshairDefault = Crosshair.Crosshair02;
 					if (Input.GetMouseButtonDown(0))
 					{
-						State = PlayerInteractStates.Drag;
-						
-						MessageBus.Publish(new PlayerClickLinker()
+						State = PlayerInteractStates.Observe;
+				
+						print(hit.collider.gameObject.name);
+						MessageBus.Publish(new PlayerDropCarry()
 						{
-							Col = hit.collider
-						});
-					}
-					else if (Input.GetMouseButtonUp(0))
-					{
-						State = PlayerInteractStates.Drop;
-						
-						MessageBus.Publish(new PlayerDropLinker()
-						{
-							Col = hit.collider
-						});
+							PutPoint = hit.point,
+							Normal = hit.normal
+						});						
 					}
 				}
-				else
+				else if (State == PlayerInteractStates.Drag)
 				{
-					Crosshair.Hide = true;
+					Crosshair.Hide = false;
+					Crosshair.CrosshairDefault = Crosshair.Crosshair03;
+					if (hit.collider.CompareTag("PortalLinker"))
+					{
+						if (Input.GetMouseButtonUp(0))
+						{
+							State = PlayerInteractStates.Observe;
+
+							MessageBus.Publish(new PlayerDropLinker()
+							{
+								Col = hit.collider
+							});
+						}
+					}
+					else
+					{
+						if (Input.GetMouseButtonUp(0))
+						{
+							State = PlayerInteractStates.Observe;				
+							MessageBus.Publish(new PlayerLinkerReset());
+						}
+					}
 				}
 			}
 			else
@@ -81,17 +142,20 @@ public class PlayerInteract : MonoBehaviour
 				Crosshair.Hide = true;
 			}
 		}
-					
-		if (State == PlayerInteractStates.Drag)
+		else
 		{
-			Crosshair.Hide = false;
-			Crosshair.CrosshairDefault = Crosshair.Crosshair03;
-			if (Input.GetMouseButtonUp(0))
+			if (State == PlayerInteractStates.Drag)
 			{
-				State = PlayerInteractStates.Drop;
-				
+				Crosshair.Hide = false;
+				Crosshair.CrosshairDefault = Crosshair.Crosshair01;
+
+				State = PlayerInteractStates.Observe;				
 				MessageBus.Publish(new PlayerLinkerReset());
 			}
-		}
+			else if (State == PlayerInteractStates.Observe || State == PlayerInteractStates.Carry)
+			{
+				Crosshair.Hide = true;
+			}
+		}							
 	}
 }

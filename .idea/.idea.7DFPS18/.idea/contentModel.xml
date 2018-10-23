@@ -707,6 +707,7 @@
             <e p="MessageBus.cs" t="Include" />
             <e p="PicturePlugin.cs" t="Include" />
             <e p="PlayerInteract.cs" t="Include" />
+            <e p="PlayerInventory.cs" t="Include" />
             <e p="Portal.cs" t="Include" />
             <e p="PortalBindPlugin.cs" t="Include" />
             <e p="PortalCamera.cs" t="Include" />

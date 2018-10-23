@@ -11,15 +11,13 @@ public class FPSExtension : MonoBehaviour {
 	private float _rotateY;
 	
 	void FixedUpdate()
-	{
-		float _rotateX = Input.GetAxis("RotateX") * RotationSpeed;
-		float _rotateY = Input.GetAxis("RotateY") * RotationSpeed;
-
-		_rotateX *= Time.deltaTime;
-		_rotateY *= Time.deltaTime;
-
-		transform.Rotate(0, _rotateX, 0);
-		Camera.Rotate(-_rotateY, 0, 0);
+	{	
+		_rotateX += Input.GetAxis("RotateX") * RotationSpeed * Time.deltaTime;
+		_rotateY -= Input.GetAxis("RotateY") * RotationSpeed * Time.deltaTime;
+		_rotateY = Mathf.Clamp(_rotateY, -90f, 90f); 
+		
+		transform.eulerAngles = new Vector3(0f, _rotateX, 0f);
+		Camera.eulerAngles = new Vector3(_rotateY, Camera.eulerAngles.y, Camera.eulerAngles.z);
 	}
 }
 
