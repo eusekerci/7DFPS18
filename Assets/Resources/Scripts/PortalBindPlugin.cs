@@ -82,6 +82,9 @@ public class PortalBindPlugin : MonoBehaviour
 		PortalA.ConnectedPortal = PortalB;
 		PortalB.ConnectedPortal = PortalA;
 		
+		PortalA.ChangeIconColor(PortalB.IconMaterial);
+		PortalB.ChangeIconColor(PortalA.IconMaterial);
+		
 		print("Portals are ready");
 	}
 
@@ -101,6 +104,8 @@ public class PortalBindPlugin : MonoBehaviour
 		PortalA.CameraMover.otherPortal = null;
 		PortalA.CameraMover.renderer = null;
 		PortalA.CameraMover.otherRenderer = null;
+		
+		PortalA.ChangeIconColor(PortalA.Renderer.material);
 
 		PortalA.ConnectedPortal = null;
 	}

@@ -32,6 +32,11 @@ public class PlayerDropCarry : MyEvent
 	public Vector3 Normal;
 }
 
+public class PlayerPictureTake : MyEvent
+{
+	public Collider Col;
+}
+
 public class PlayerLinkerReset : MyEvent { }
 
 public class PlayerPlaneTeleportStart : MyEvent
@@ -67,6 +72,13 @@ public class PlayerInteract : MonoBehaviour
 					{
 						Crosshair.Hide = false;
 						Crosshair.CrosshairDefault = Crosshair.Crosshair01;
+						if (Input.GetMouseButtonDown(0))
+						{
+							MessageBus.Publish(new PlayerPictureTake()
+							{
+								Col = hit.collider
+							});
+						}
 					}
 					else if (hit.collider.CompareTag("PortalLinker"))
 					{
@@ -120,7 +132,20 @@ public class PlayerInteract : MonoBehaviour
 				{
 					Crosshair.Hide = false;
 					Crosshair.CrosshairDefault = Crosshair.Crosshair01;
-					if (Input.GetMouseButtonDown(0))
+					
+					if (hit.collider.CompareTag("PlaneLinker"))
+					{
+						Crosshair.CrosshairDefault = Crosshair.Crosshair04;	
+
+						if (Input.GetMouseButtonDown(0))
+						{							
+							MessageBus.Publish(new PlayerPlaneTeleportStart()
+							{
+								Col = hit.collider
+							});
+						}
+					}
+					else if (Input.GetMouseButtonDown(0))
 					{
 						State = PlayerInteractStates.Observe;
 				
