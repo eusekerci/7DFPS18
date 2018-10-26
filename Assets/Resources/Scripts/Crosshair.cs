@@ -9,6 +9,7 @@ public class Crosshair : MonoBehaviour
 	public Texture Crosshair01 = null;
 	public Texture Crosshair02 = null;
 	public Texture Crosshair03 = null;
+	public Texture Crosshair04 = null;
 
 	public bool Hide = false;
 

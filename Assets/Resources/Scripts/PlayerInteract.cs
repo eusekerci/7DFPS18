@@ -7,7 +7,8 @@ public enum PlayerInteractStates
 {
 	Observe, 
 	Drag, 
-	Carry
+	Carry,
+	TeleportChannel
 };
 
 public class PlayerClickLinker : MyEvent
@@ -32,6 +33,11 @@ public class PlayerDropCarry : MyEvent
 }
 
 public class PlayerLinkerReset : MyEvent { }
+
+public class PlayerPlaneTeleportStart : MyEvent
+{
+	public Collider Col;
+}
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -90,6 +96,21 @@ public class PlayerInteract : MonoBehaviour
 							});
 						}
 					}
+					else if (hit.collider.CompareTag("PlaneLinker"))
+					{
+						Crosshair.Hide = false;
+						Crosshair.CrosshairDefault = Crosshair.Crosshair04;	
+
+						if (Input.GetMouseButtonDown(0))
+						{
+							State = PlayerInteractStates.TeleportChannel;
+							
+							MessageBus.Publish(new PlayerPlaneTeleportStart()
+							{
+								Col = hit.collider
+							});
+						}
+					}
 					else
 					{
 						Crosshair.Hide = true;
@@ -136,6 +157,10 @@ public class PlayerInteract : MonoBehaviour
 						}
 					}
 				}
+				else if (State == PlayerInteractStates.TeleportChannel)
+				{
+					Crosshair.Hide = true;
+				}
 			}
 			else
 			{
@@ -155,6 +180,10 @@ public class PlayerInteract : MonoBehaviour
 			else if (State == PlayerInteractStates.Observe || State == PlayerInteractStates.Carry)
 			{
 				Crosshair.Hide = true;
+			}
+			else if (State == PlayerInteractStates.TeleportChannel)
+			{
+				State = PlayerInteractStates.Observe;
 			}
 		}							
 	}

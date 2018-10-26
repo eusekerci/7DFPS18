@@ -706,6 +706,8 @@
             <e p="FPSExtension.cs" t="Include" />
             <e p="MessageBus.cs" t="Include" />
             <e p="PicturePlugin.cs" t="Include" />
+            <e p="PlaneTeleporter.cs" t="Include" />
+            <e p="PlaneTeleporterCamera.cs" t="Include" />
             <e p="PlayerInteract.cs" t="Include" />
             <e p="PlayerInventory.cs" t="Include" />
             <e p="Portal.cs" t="Include" />
