@@ -10,6 +10,7 @@ public class Crosshair : MonoBehaviour
 	public Texture Crosshair02 = null;
 	public Texture Crosshair03 = null;
 	public Texture Crosshair04 = null;
+	public Texture Crosshair05 = null;
 
 	public float CrossHairMaxMultiplier;
 	public float CrossHairMinMultiplier;
@@ -33,6 +34,7 @@ public class Crosshair : MonoBehaviour
 			(Screen.height * 0.5f) - (CrosshairDefault.height * 0.5f * _crossHairCurrentMultiplier), CrosshairDefault.width * _crossHairCurrentMultiplier,
 			CrosshairDefault.height * _crossHairCurrentMultiplier), CrosshairDefault);
 		GUI.color = Color.white;
+
 	}
 
 	private void Start()
@@ -43,7 +45,7 @@ public class Crosshair : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (CrosshairDefault == Crosshair04)
+		if (CrosshairDefault == Crosshair04 || CrosshairDefault == Crosshair05)
 		{
 			if (_isIncreasing)
 			{

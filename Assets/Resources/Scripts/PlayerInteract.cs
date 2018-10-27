@@ -87,7 +87,7 @@ public class PlayerInteract : MonoBehaviour
 						if (Input.GetMouseButtonDown(0))
 						{
 							State = PlayerInteractStates.Drag;
-
+							
 							MessageBus.Publish(new PlayerClickLinker()
 							{
 								Col = hit.collider
@@ -163,6 +163,7 @@ public class PlayerInteract : MonoBehaviour
 					Crosshair.CrosshairDefault = Crosshair.Crosshair03;
 					if (hit.collider.CompareTag("PortalLinker"))
 					{
+						Crosshair.CrosshairDefault = Crosshair.Crosshair05;
 						if (Input.GetMouseButtonUp(0))
 						{
 							State = PlayerInteractStates.Observe;

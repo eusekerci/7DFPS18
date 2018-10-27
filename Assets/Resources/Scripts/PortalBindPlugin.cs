@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using ProBuilder2.Common;
 using UnityEngine;
-using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
 
 public class Pair<T, U> {
 	public Pair() {
@@ -36,23 +34,18 @@ public class PortalBindPlugin : MonoBehaviour
 		}
 
 		Application.targetFrameRate = 120;
-		EditorSceneManager.preventCrossSceneReferences = false;
 	}
 
 	#endregion
 	
-	public string InitA;
-	public string InitB;
-
 	private List<Pair<string, string>> Binds;
 	
-	public void Start()
+	public void Init()
 	{
 		Binds = new List<Pair<string, string>>();
-		BindPortals(GameObject.Find(InitA).GetComponent<Portal>(), GameObject.Find(InitB).GetComponent<Portal>());
 	}
 	
-	public void BindPortals(Portal portalA, Portal portalB, bool reOpen = false)
+	public void BindPortals(Portal portalA, Portal portalB)
 	{
 		if (portalA.ConnectedPortal != null)
 		{
@@ -103,11 +96,11 @@ public class PortalBindPlugin : MonoBehaviour
 		
 		portalA.ChangeIconColor(portalB.IconMaterial);
 		portalB.ChangeIconColor(portalA.IconMaterial);
-		
-		if(!reOpen)
-			Binds.Add(new Pair<string, string> (portalA.gameObject.name, portalB.gameObject.name));
-		
-		print("Portals are ready");
+
+		Pair<string, string> bindPair = new Pair<string, string>(portalA.gameObject.name, portalB.gameObject.name);
+		Pair<string, string> bindPair2 = new Pair<string, string>(portalB.gameObject.name, portalA.gameObject.name);
+		if(!Binds.Contains(bindPair) && !Binds.Contains(bindPair2))
+			Binds.Add(bindPair);
 	}
 
 	public void ResetPortal(Portal portalA)
@@ -128,13 +121,8 @@ public class PortalBindPlugin : MonoBehaviour
 		portalA.ChangeIconColor(portalA.Renderer.material);
 
 		portalA.ConnectedPortal = null;
-
-		for (int i = 0; i < Binds.Count; i++)
-		{
-			if (Binds[i].First != portalA.gameObject.name && Binds[i].Second != portalA.gameObject.name) continue;
-			Binds.RemoveAt(i);
-			break;
-		}
+		
+		Binds.RemoveAll(x => x.First == portalA.gameObject.name || x.Second == portalA.gameObject.name);
 	}
 
 	public void RestoreBind(Portal portalA)
@@ -147,7 +135,7 @@ public class PortalBindPlugin : MonoBehaviour
 			}
 			else if (Binds[i].Second == portalA.gameObject.name)
 			{
-				BindPortals(portalA, GameObject.Find(Binds[i].First).GetComponent<Portal>());
+				BindPortals(GameObject.Find(Binds[i].First).GetComponent<Portal>(), portalA);
 			}				
 		}	
 	}

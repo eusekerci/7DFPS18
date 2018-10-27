@@ -71,6 +71,8 @@ public class PicturePlugin : MonoBehaviour
 	{
 		_collider = GetComponent<Collider>();
 		_roomObject = GameObject.Find("Room" + RoomNo);
+		if (!_roomObject)
+			return;
 		_roomCamera = _roomObject.GetComponentInChildren<Camera>();
 
 		if (IsAlreadyExist)
@@ -95,7 +97,16 @@ public class PicturePlugin : MonoBehaviour
 
 		for (int i = 0; i < Linkers.Length; i++)
 		{
-			_portals[i] = GameObject.Find("Portal" + RoomNo + "_0" + (i + 1)).GetComponent<Portal>();
+			GameObject go = GameObject.Find("Portal" + RoomNo + "_0" + (i + 1));
+			if (go.GetComponent<Portal>() != null)
+			{
+				_portals[i] = go.GetComponent<Portal>();	
+			}
+			else if(go.GetComponent<PlaneTeleporter>() != null)
+			{
+				_portals[i] = go.GetComponent<PlaneTeleporter>();
+			}
+			
 		}
 	}
 }

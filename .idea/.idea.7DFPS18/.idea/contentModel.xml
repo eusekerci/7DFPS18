@@ -702,8 +702,10 @@
         </e>
         <e p="Resources" t="Include">
           <e p="Scripts" t="Include">
+            <e p="BoxLocker.cs" t="Include" />
             <e p="Crosshair.cs" t="Include" />
             <e p="FPSExtension.cs" t="Include" />
+            <e p="GameInitiliazer.cs" t="Include" />
             <e p="IconPunch.cs" t="Include" />
             <e p="ItemChangeMagic.cs" t="Include" />
             <e p="LockedDoor.cs" t="Include" />
