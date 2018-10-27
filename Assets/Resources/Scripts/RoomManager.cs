@@ -54,12 +54,17 @@ public class RoomManager : MonoBehaviour {
 
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(roomName, LoadSceneMode.Additive);
 
+		while (!asyncLoad.isDone)
+		{
+			yield return null;
+		}
+			
+		if (!ActiveRoom)
+		{
+			ActiveRoom = GameObject.Find(roomName);
+		}
 		if (firstTime)
 		{
-			while (!asyncLoad.isDone)
-			{
-				yield return null;
-			}
 			
 			PortalBindPlugin.Instance.BindPortals(GameObject.Find("Portal01_01").GetComponent<Portal>(), GameObject.Find("Portal01_02").GetComponent<Portal>());
 		}
