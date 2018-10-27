@@ -24,34 +24,8 @@ public class PicturePlugin : MonoBehaviour
 	{
 		_isLinkerSelected = false;
 		
-		_collider = GetComponent<Collider>();
-		_roomObject = GameObject.Find("Room" + RoomNo);
-		_roomCamera = _roomObject.GetComponentInChildren<Camera>();
-		
-		if (IsAlreadyExist)
-		{
-			GameObject samePic = GameObject.Find(SamePicture);
-			PictureRenderer.material = samePic.transform.Find("Renderer")
-				.GetComponent<MeshRenderer>().material;
-		}
-		else
-		{
-			if (_roomCamera.targetTexture != null)
-			{
-				_roomCamera.targetTexture.Release();
-			}
-			_roomCamera.targetTexture = new RenderTexture(256, 256, 24);
-			PictureRenderer.materials[0] = new Material(Resources.Load<Shader>("Shaders/ScreenCutoutShader"));
-			PictureRenderer.material.mainTexture = _roomCamera.targetTexture;
-		}
+		InitiliazePicture();
 
-		_portals = new Portal[Linkers.Length];
-		
-		for (int i = 0; i < Linkers.Length; i++)
-		{
-			_portals[i] = GameObject.Find("Portal" + RoomNo + "_0" + (i + 1)).GetComponent<Portal>();
-		}
-		
 		MessageBus.OnEvent<PlayerClickLinker>().Subscribe(evnt =>
 		{
 			for (int i=0;i<Linkers.Length; i++)
@@ -91,5 +65,37 @@ public class PicturePlugin : MonoBehaviour
 			print("Linkers are free");
 		});
 
+	}
+
+	public void InitiliazePicture()
+	{
+		_collider = GetComponent<Collider>();
+		_roomObject = GameObject.Find("Room" + RoomNo);
+		_roomCamera = _roomObject.GetComponentInChildren<Camera>();
+
+		if (IsAlreadyExist)
+		{
+			GameObject samePic = GameObject.Find(SamePicture);
+			PictureRenderer.material = samePic.transform.Find("Renderer")
+				.GetComponent<MeshRenderer>().material;
+		}
+		else
+		{
+			if (_roomCamera.targetTexture != null)
+			{
+				_roomCamera.targetTexture.Release();
+			}
+
+			_roomCamera.targetTexture = new RenderTexture(256, 256, 24);
+			PictureRenderer.materials[0] = new Material(Resources.Load<Shader>("Shaders/ScreenCutoutShader"));
+			PictureRenderer.material.mainTexture = _roomCamera.targetTexture;
+		}
+
+		_portals = new Portal[Linkers.Length];
+
+		for (int i = 0; i < Linkers.Length; i++)
+		{
+			_portals[i] = GameObject.Find("Portal" + RoomNo + "_0" + (i + 1)).GetComponent<Portal>();
+		}
 	}
 }

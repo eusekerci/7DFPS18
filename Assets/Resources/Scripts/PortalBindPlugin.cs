@@ -3,6 +3,20 @@ using System.Collections.Generic;
 using ProBuilder2.Common;
 using UnityEngine;
 using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
+
+public class Pair<T, U> {
+	public Pair() {
+	}
+
+	public Pair(T first, U second) {
+		this.First = first;
+		this.Second = second;
+	}
+
+	public T First { get; set; }
+	public U Second { get; set; }
+};
 
 public class PortalBindPlugin : MonoBehaviour
 {	
@@ -29,86 +43,112 @@ public class PortalBindPlugin : MonoBehaviour
 	
 	public string InitA;
 	public string InitB;
+
+	private List<Pair<string, string>> Binds;
 	
 	public void Start()
 	{
+		Binds = new List<Pair<string, string>>();
 		BindPortals(GameObject.Find(InitA).GetComponent<Portal>(), GameObject.Find(InitB).GetComponent<Portal>());
 	}
 	
-	public void BindPortals(Portal PortalA, Portal PortalB)
+	public void BindPortals(Portal portalA, Portal portalB, bool reOpen = false)
 	{
-		if (PortalA.ConnectedPortal != null)
+		if (portalA.ConnectedPortal != null)
 		{
-			ResetPortal(PortalA.ConnectedPortal);
+			ResetPortal(portalA.ConnectedPortal);
 		}
-		if (PortalB.ConnectedPortal != null)
+		if (portalB.ConnectedPortal != null)
 		{
-			ResetPortal(PortalB.ConnectedPortal);
+			ResetPortal(portalB.ConnectedPortal);
 		}
 		
-		if (PortalA.Camera.targetTexture != null)
+		if (portalA.Camera.targetTexture != null)
 		{
-			PortalA.Camera.targetTexture.Release();
+			portalA.Camera.targetTexture.Release();
 		}
-		PortalA.Camera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
-		PortalA.Renderer.material = null;
-		PortalA.Renderer.material = new Material(Resources.Load<Shader>("Shaders/ScreenCutoutShader"));
-		PortalA.Renderer.material.mainTexture = PortalA.Camera.targetTexture;
+		portalA.Camera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
+		portalA.Renderer.material = null;
+		portalA.Renderer.material = new Material(Resources.Load<Shader>("Shaders/ScreenCutoutShader"));
+		portalA.Renderer.material.mainTexture = portalA.Camera.targetTexture;
 
-		if (PortalB.Camera.targetTexture != null)
+		if (portalB.Camera.targetTexture != null)
 		{
-			PortalB.Camera.targetTexture.Release();
+			portalB.Camera.targetTexture.Release();
 		}
-		PortalB.Camera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
-		PortalB.Renderer.material = null;
-		PortalB.Renderer.material = new Material(Resources.Load<Shader>("Shaders/ScreenCutoutShader"));
-		PortalB.Renderer.material.mainTexture = PortalB.Camera.targetTexture;
+		portalB.Camera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
+		portalB.Renderer.material = null;
+		portalB.Renderer.material = new Material(Resources.Load<Shader>("Shaders/ScreenCutoutShader"));
+		portalB.Renderer.material.mainTexture = portalB.Camera.targetTexture;
 
 		print("Renderers are created");
 		
-		PortalA.Teleporter.Receiver = PortalB.Receiver;
-		PortalB.Teleporter.Receiver = PortalA.Receiver;
+		portalA.Teleporter.Receiver = portalB.Receiver;
+		portalB.Teleporter.Receiver = portalA.Receiver;
 
 		print("Colliders are set");
 		
-		PortalA.CameraMover.portal = PortalB.Root;
-		PortalA.CameraMover.otherPortal = PortalA.Root;
-		PortalA.CameraMover.renderer = PortalA.Renderer.transform;
-		PortalA.CameraMover.otherRenderer = PortalB.Renderer.transform;
+		portalA.CameraMover.portal = portalB.Root;
+		portalA.CameraMover.otherPortal = portalA.Root;
+		portalA.CameraMover.renderer = portalA.Renderer.transform;
+		portalA.CameraMover.otherRenderer = portalB.Renderer.transform;
 		
-		PortalB.CameraMover.portal = PortalA.Root;
-		PortalB.CameraMover.otherPortal = PortalB.Root;
-		PortalB.CameraMover.renderer = PortalB.Renderer.transform;
-		PortalB.CameraMover.otherRenderer = PortalA.Renderer.transform;
+		portalB.CameraMover.portal = portalA.Root;
+		portalB.CameraMover.otherPortal = portalB.Root;
+		portalB.CameraMover.renderer = portalB.Renderer.transform;
+		portalB.CameraMover.otherRenderer = portalA.Renderer.transform;
 
-		PortalA.ConnectedPortal = PortalB;
-		PortalB.ConnectedPortal = PortalA;
+		portalA.ConnectedPortal = portalB;
+		portalB.ConnectedPortal = portalA;
 		
-		PortalA.ChangeIconColor(PortalB.IconMaterial);
-		PortalB.ChangeIconColor(PortalA.IconMaterial);
+		portalA.ChangeIconColor(portalB.IconMaterial);
+		portalB.ChangeIconColor(portalA.IconMaterial);
+		
+		if(!reOpen)
+			Binds.Add(new Pair<string, string> (portalA.gameObject.name, portalB.gameObject.name));
 		
 		print("Portals are ready");
 	}
 
-	public void ResetPortal(Portal PortalA)
+	public void ResetPortal(Portal portalA)
 	{
-		if (PortalA.Camera.targetTexture != null)
+		if (portalA.Camera.targetTexture != null)
 		{
-			PortalA.Camera.targetTexture.Release();
+			portalA.Camera.targetTexture.Release();
 		}
 
-		PortalA.Teleporter.Receiver = null;
-		PortalA.Renderer.material = null;
-		PortalA.Renderer.material = new Material(Resources.Load<Material>("Materials/DoorBlack"));
-		PortalA.Renderer.material.mainTexture = null;
-
-		PortalA.CameraMover.portal = null;
-		PortalA.CameraMover.otherPortal = null;
-		PortalA.CameraMover.renderer = null;
-		PortalA.CameraMover.otherRenderer = null;
+		portalA.Teleporter.Receiver = null;
+		portalA.Renderer.material = null;
+		portalA.Renderer.material = new Material(Resources.Load<Material>("Materials/DoorBlack")) {mainTexture = null};
+		portalA.CameraMover.portal = null;
+		portalA.CameraMover.otherPortal = null;
+		portalA.CameraMover.renderer = null;
+		portalA.CameraMover.otherRenderer = null;
 		
-		PortalA.ChangeIconColor(PortalA.Renderer.material);
+		portalA.ChangeIconColor(portalA.Renderer.material);
 
-		PortalA.ConnectedPortal = null;
+		portalA.ConnectedPortal = null;
+
+		for (int i = 0; i < Binds.Count; i++)
+		{
+			if (Binds[i].First != portalA.gameObject.name && Binds[i].Second != portalA.gameObject.name) continue;
+			Binds.RemoveAt(i);
+			break;
+		}
+	}
+
+	public void RestoreBind(Portal portalA)
+	{
+		for (int i = 0; i < Binds.Count; i++)
+		{
+			if (Binds[i].First == portalA.gameObject.name)
+			{
+				BindPortals(portalA, GameObject.Find(Binds[i].Second).GetComponent<Portal>());
+			}
+			else if (Binds[i].Second == portalA.gameObject.name)
+			{
+				BindPortals(portalA, GameObject.Find(Binds[i].First).GetComponent<Portal>());
+			}				
+		}	
 	}
 }

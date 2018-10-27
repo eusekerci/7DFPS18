@@ -55,7 +55,7 @@ public class PlayerInventory : MonoBehaviour
 
 		_isHolding = false;
 		_myObject.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-		_myObject.parent = null;
+		_myObject.parent = RoomManager.Instance.ActiveRoom.transform;
 		_myObject.localEulerAngles = new Vector3(0f, 0f, 0f);
 		_myObject.position = point + normal * 0.5f;
 		_myObject = null;

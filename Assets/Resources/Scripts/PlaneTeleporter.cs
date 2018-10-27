@@ -5,38 +5,39 @@ using UniRx;
 
 public class PlaneTeleporter : Portal {
 	
-	private Transform Player;
-	private Transform PlayerCamera;
-	private PlaneTeleporterCamera TeleporterCameraLogic;
+	private Transform _player;
+	private Transform _playerCamera;
+	private PlaneTeleporterCamera _teleporterCameraLogic;
 
-	private bool TeleportingStart;
+	private bool _teleportingStart;
 	
 	void Start ()
 	{
 		MessageBus.OnEvent<PlayerPlaneTeleportStart>().Subscribe(evnt => { StartTeleport(); });
-		Player = GameObject.Find("Player").transform;
-		PlayerCamera = Player.Find("PlayerCamera");
-		TeleporterCameraLogic = Player.GetComponent<PlaneTeleporterCamera>();
+		_player = GameObject.Find("Player").transform;
+		_playerCamera = _player.Find("PlayerCamera");
+		_teleporterCameraLogic = _player.GetComponent<PlaneTeleporterCamera>();
 
-		TeleportingStart = false;
+		_teleportingStart = false;
 	}
 	
 	void LateUpdate ()
 	{
-		if (!TeleportingStart)
+		if (!_teleportingStart)
 			return;
 
-		if (TeleporterCameraLogic.FadeOutCompleted)
+		if (_teleporterCameraLogic.FadeOutCompleted)
 		{
-			PlayerCamera.Rotate(90, 0, 0);
-			Player.position = Receiver.position;
-			TeleportingStart = false;
-			TeleporterCameraLogic.EndTeleport();
+			_playerCamera.Rotate(90, 0, 0);
+			_player.position = Receiver.position;
+			_teleportingStart = false;
+			_teleporterCameraLogic.EndTeleport();
+			RoomManager.Instance.ActiveRoom = Receiver.transform.parent.gameObject;
 		}
 	}
 
 	void StartTeleport()
 	{
-		TeleportingStart = true;
+		_teleportingStart = true;
 	}
 }

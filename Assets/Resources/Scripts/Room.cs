@@ -1,27 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UniRx;
+
+
 
 public class Room : MonoBehaviour
 {
-	public GameObject[] Objects;
-	public GameObject[] Prefabs;
-	public Vector3[] Positions;
-	public Vector3[] Rotations;
-
-	public bool IsPlayerInMe;
-
-	private void Awake()
-	{
-		IsPlayerInMe = false;
-	}
-
 	private void Start()
 	{
-		
-		for (int i = 0; i < Objects.Length; i++)
+		IEnumerable<GameObject> pictures = GameObject.FindGameObjectsWithTag("Picture");
+		foreach (var picture in pictures)
 		{
-			
+			picture.GetComponent<PicturePlugin>().InitiliazePicture();
+		}
+
+		IEnumerable<Portal> portals = gameObject.GetComponentsInChildren<Portal>();
+		foreach (var portal in portals)
+		{
+			PortalBindPlugin.Instance.RestoreBind(portal);
 		}
 	}
 }

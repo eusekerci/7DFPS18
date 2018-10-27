@@ -11,17 +11,19 @@ public class PortalTeleporter : MonoBehaviour {
 
 	private Transform player;
 	private Transform _playerCamera;
-	private bool playerIsOverlapping = false;
-
+	private bool _playerIsOverlapping = false;
+	private string _myRoomName;
+	
 	void Start()
 	{
 		player = GameObject.Find("Player").transform;
 		_playerCamera = player.GetComponentInChildren<Camera>().transform;
+		_myRoomName = transform.parent.parent.gameObject.name;
 	}
 	
 	void LateUpdate () 
 	{
-		if (playerIsOverlapping && Receiver)
+		if (_playerIsOverlapping && Receiver)
 		{
 			Vector3 portalToPlayer = player.position - transform.position;
 			float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
@@ -37,7 +39,13 @@ public class PortalTeleporter : MonoBehaviour {
 				Vector3 positionOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
 				player.position = Receiver.position + positionOffset;
 
-				playerIsOverlapping = false;
+				_playerIsOverlapping = false;
+
+				RoomManager.Instance.ActiveRoom = Receiver.transform.parent.parent.gameObject;
+				
+				//First room magic trick
+				if(Receiver.transform.parent.parent.gameObject.name != _myRoomName || _myRoomName != "Room01")
+					RoomManager.Instance.LoadRoom(_myRoomName);
 			}
 		}
 	}
@@ -51,17 +59,17 @@ public class PortalTeleporter : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.CompareTag("Player"))
 		{
-			playerIsOverlapping = true;
+			_playerIsOverlapping = true;
 		}
 	}
 
 	void OnTriggerExit (Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.CompareTag("Player"))
 		{
-			playerIsOverlapping = false;
+			_playerIsOverlapping = false;
 		}
 	}
 }
