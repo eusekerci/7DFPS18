@@ -5,15 +5,18 @@ using UniRx;
 
 public class PicturePlugin : MonoBehaviour
 {
-	public Camera RoomCamera;
+	public string RoomNo;
 	public MeshRenderer PictureRenderer;
 	public bool IsAlreadyExist;
-	public MeshRenderer CopyFromRenderer;
+	public string SamePicture;
 	public Collider[] Linkers;
-	public Portal[] Portals;
 
+	private GameObject _roomObject;
+	private Camera _roomCamera;
+	private MeshRenderer _copyFromRenderer;
 	private static bool _isLinkerSelected;
 	private static Portal _linkedPortal;
+	private Portal[] _portals;
 
 	private Collider _collider;
 	
@@ -22,20 +25,31 @@ public class PicturePlugin : MonoBehaviour
 		_isLinkerSelected = false;
 		
 		_collider = GetComponent<Collider>();
-
+		_roomObject = GameObject.Find("Room" + RoomNo);
+		_roomCamera = _roomObject.GetComponentInChildren<Camera>();
+		
 		if (IsAlreadyExist)
 		{
-			PictureRenderer.material = CopyFromRenderer.material;
+			GameObject samePic = GameObject.Find(SamePicture);
+			PictureRenderer.material = samePic.transform.Find("Renderer")
+				.GetComponent<MeshRenderer>().material;
 		}
 		else
 		{
-			if (RoomCamera.targetTexture != null)
+			if (_roomCamera.targetTexture != null)
 			{
-				RoomCamera.targetTexture.Release();
+				_roomCamera.targetTexture.Release();
 			}
-			RoomCamera.targetTexture = new RenderTexture(256, 256, 24);
+			_roomCamera.targetTexture = new RenderTexture(256, 256, 24);
 			PictureRenderer.materials[0] = new Material(Resources.Load<Shader>("Shaders/ScreenCutoutShader"));
-			PictureRenderer.material.mainTexture = RoomCamera.targetTexture;
+			PictureRenderer.material.mainTexture = _roomCamera.targetTexture;
+		}
+
+		_portals = new Portal[Linkers.Length];
+		
+		for (int i = 0; i < Linkers.Length; i++)
+		{
+			_portals[i] = GameObject.Find("Portal" + RoomNo + "_0" + (i + 1)).GetComponent<Portal>();
 		}
 		
 		MessageBus.OnEvent<PlayerClickLinker>().Subscribe(evnt =>
@@ -45,7 +59,7 @@ public class PicturePlugin : MonoBehaviour
 				if (Linkers[i].GetInstanceID() == evnt.Col.GetInstanceID())
 				{
 					_isLinkerSelected = true;
-					_linkedPortal = Portals[i];
+					_linkedPortal = _portals[i];
 					print("Linker Selected = " + i);
 					break;
 				}
@@ -58,9 +72,9 @@ public class PicturePlugin : MonoBehaviour
 			{
 				for (int i=0;i<Linkers.Length; i++)
 				{
-					if (Linkers[i].GetInstanceID() == evnt.Col.GetInstanceID() && Portals[i].GetInstanceID() != _linkedPortal.GetInstanceID())
+					if (Linkers[i].GetInstanceID() == evnt.Col.GetInstanceID() && _portals[i].GetInstanceID() != _linkedPortal.GetInstanceID())
 					{
-						PortalBindPlugin.Instance.BindPortals(_linkedPortal, Portals[i]);
+						PortalBindPlugin.Instance.BindPortals(_linkedPortal, _portals[i]);
 						_isLinkerSelected = false;
 						_linkedPortal = null;
 						print("Linker Matched = " + i);
