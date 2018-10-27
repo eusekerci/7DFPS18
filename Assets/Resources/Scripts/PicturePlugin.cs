@@ -64,7 +64,18 @@ public class PicturePlugin : MonoBehaviour
 			_linkedPortal = null;
 			print("Linkers are free");
 		});
-
+		
+		MessageBus.OnEvent<PlayerPlaneTeleportStart>().Subscribe(evnt =>
+		{
+			for (int i=0;i<Linkers.Length; i++)
+			{
+				if (Linkers[i].GetInstanceID() == evnt.Col.GetInstanceID())
+				{
+					_portals[i].StartTeleport();
+					break;
+				}
+			}
+		});
 	}
 
 	public void InitiliazePicture()

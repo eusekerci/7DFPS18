@@ -13,7 +13,6 @@ public class PlaneTeleporter : Portal {
 	
 	void Start ()
 	{
-		MessageBus.OnEvent<PlayerPlaneTeleportStart>().Subscribe(evnt => { StartTeleport(); });
 		_player = GameObject.Find("Player").transform;
 		_playerCamera = _player.Find("PlayerCamera");
 		_teleporterCameraLogic = _player.GetComponent<PlaneTeleporterCamera>();
@@ -36,7 +35,7 @@ public class PlaneTeleporter : Portal {
 		}
 	}
 
-	void StartTeleport()
+	public override void StartTeleport()
 	{
 		_teleportingStart = true;
 	}

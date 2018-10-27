@@ -711,6 +711,7 @@
             <e p="LockedDoor.cs" t="Include" />
             <e p="MessageBus.cs" t="Include" />
             <e p="PicturePlugin.cs" t="Include" />
+            <e p="PlaneRotator.cs" t="Include" />
             <e p="PlaneTeleporter.cs" t="Include" />
             <e p="PlaneTeleporterCamera.cs" t="Include" />
             <e p="PlayerInteract.cs" t="Include" />
@@ -722,6 +723,8 @@
             <e p="PortalTextureSetup.cs" t="Include" />
             <e p="Room.cs" t="Include" />
             <e p="RoomManager.cs" t="Include" />
+            <e p="SceneChangeTrigger.cs" t="Include" />
+            <e p="SelfBinder.cs" t="Include" />
           </e>
           <e p="Shaders" t="Include">
             <e p="ScreenCutoutShader.shader" t="Include" />

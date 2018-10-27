@@ -19,4 +19,9 @@ public class Portal : MonoBehaviour
 
 		iconRenderer.material = newMaterial;
 	}
+
+	public virtual void StartTeleport()
+	{
+		
+	}
 }
