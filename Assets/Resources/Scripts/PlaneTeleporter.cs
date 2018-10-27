@@ -5,15 +5,20 @@ using UniRx;
 
 public class PlaneTeleporter : Portal {
 	
-	public PlaneTeleporterCamera TeleporterCameraLogic;
-	public Transform Player;
-	public Transform PlayerCamera;
+	private Transform Player;
+	private Transform PlayerCamera;
+	private PlaneTeleporterCamera TeleporterCameraLogic;
 
 	private bool TeleportingStart;
 	
 	void Start ()
 	{
-		MessageBus.OnEvent<PlayerPlaneTeleportStart>().Subscribe(evnt => { StartTeleport(); });	
+		MessageBus.OnEvent<PlayerPlaneTeleportStart>().Subscribe(evnt => { StartTeleport(); });
+		Player = GameObject.Find("Player").transform;
+		PlayerCamera = Player.Find("PlayerCamera");
+		TeleporterCameraLogic = Player.GetComponent<PlaneTeleporterCamera>();
+
+		TeleportingStart = false;
 	}
 	
 	void LateUpdate ()

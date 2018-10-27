@@ -22,17 +22,17 @@ public class PortalBindPlugin : MonoBehaviour
 		}
 
 		Application.targetFrameRate = 120;
+		EditorSceneManager.preventCrossSceneReferences = false;
 	}
 
 	#endregion
 	
-	public Portal InitA;
-	public Portal InitB;
+	public string InitA;
+	public string InitB;
 	
 	public void Start()
 	{
-		EditorSceneManager.preventCrossSceneReferences = false;
-		BindPortals(InitA, InitB);
+		BindPortals(GameObject.Find(InitA).GetComponent<Portal>(), GameObject.Find(InitB).GetComponent<Portal>());
 	}
 	
 	public void BindPortals(Portal PortalA, Portal PortalB)
