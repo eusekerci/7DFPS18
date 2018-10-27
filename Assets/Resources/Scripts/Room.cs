@@ -15,4 +15,13 @@ public class Room : MonoBehaviour
 	{
 		IsPlayerInMe = false;
 	}
+
+	private void Start()
+	{
+		
+		for (int i = 0; i < Objects.Length; i++)
+		{
+			
+		}
+	}
 }

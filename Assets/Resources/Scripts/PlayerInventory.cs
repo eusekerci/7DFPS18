@@ -8,17 +8,21 @@ public class PlayerInventory : MonoBehaviour
 	public Transform Camera;
 
 	private bool _isHolding;
-	private Vector3 _localHoldPosition;
-	private Vector3 _localHoldRotation;
+	private Vector3 _localHoldPositionBox;
+	private Vector3 _localHoldRotationBox;
+	private Vector3 _localHoldPositionKey;
+	private Vector3 _localHoldRotationKey;
 	private Transform _myObject;
 
 	void Start()
 	{
 		_isHolding = false;
-		_localHoldPosition = new Vector3(-0.7f, -0.7f, 0.7f);
-		_localHoldRotation = new Vector3(0, -250, 0);
+		_localHoldPositionBox = new Vector3(-0.7f, -0.7f, 0.7f);
+		_localHoldRotationBox = new Vector3(0, -250, 0);
+		_localHoldPositionKey = new Vector3(-0.55f, -0.35f, 0.75f);
+		_localHoldRotationKey = new Vector3(-100, 0, 0);
 		
-		MessageBus.OnEvent<PlayerStartCarry>().Subscribe(evnt => { HoldItem(evnt.Col); });
+		MessageBus.OnEvent<	PlayerStartCarry>().Subscribe(evnt => { HoldItem(evnt.Col); });
 		MessageBus.OnEvent<PlayerDropCarry>().Subscribe(evnt => { PutItem(evnt.PutPoint, evnt.Normal); });
 	}
 
@@ -29,8 +33,17 @@ public class PlayerInventory : MonoBehaviour
 		_isHolding = true;
 		col.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 		col.transform.parent = Camera;
-		col.transform.localPosition = _localHoldPosition;
-		col.transform.localEulerAngles = _localHoldRotation;
+		if (col.CompareTag("Box"))
+		{
+			col.transform.localPosition = _localHoldPositionBox;
+			col.transform.localEulerAngles = _localHoldRotationBox;
+		}
+		else if (col.CompareTag("Key"))
+		{
+			col.transform.localPosition = _localHoldPositionKey;
+			col.transform.localEulerAngles = _localHoldRotationKey;
+		}
+
 		_myObject = col.transform;
 		print("Item Hold");
 	}

@@ -94,7 +94,7 @@ public class PlayerInteract : MonoBehaviour
 							});
 						}
 					}
-					else if (hit.collider.CompareTag("Box"))
+					else if (hit.collider.CompareTag("Box") || hit.collider.CompareTag("Key"))
 					{
 						Crosshair.Hide = false;
 						Crosshair.CrosshairDefault = Crosshair.Crosshair02;

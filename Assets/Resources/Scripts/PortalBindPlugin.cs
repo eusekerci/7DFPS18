@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ProBuilder2.Common;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 
 public class PortalBindPlugin : MonoBehaviour
 {	
@@ -24,12 +25,13 @@ public class PortalBindPlugin : MonoBehaviour
 	}
 
 	#endregion
-
+	
 	public Portal InitA;
 	public Portal InitB;
 	
 	public void Start()
 	{
+		EditorSceneManager.preventCrossSceneReferences = false;
 		BindPortals(InitA, InitB);
 	}
 	
