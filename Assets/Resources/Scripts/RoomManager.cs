@@ -35,6 +35,14 @@ public class RoomManager : MonoBehaviour {
 		ActiveRoom = GameObject.Find("Room01");
 	}
 
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Backspace))
+		{
+			Application.Quit();
+		}
+	}
+
 	public void LoadRoom(string roomName, bool firstTime = false)
 	{
 		StartCoroutine(LoadRoomAsync(roomName, firstTime));
