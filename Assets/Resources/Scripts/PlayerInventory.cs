@@ -58,6 +58,8 @@ public class PlayerInventory : MonoBehaviour
 		_myObject.parent = RoomManager.Instance.ActiveRoom.transform;
 		_myObject.localEulerAngles = new Vector3(0f, 0f, 0f);
 		_myObject.position = point + normal * 0.5f;
+		if(_myObject.position.x < -999)
+			Destroy(_myObject.gameObject);
 		_myObject = null;
 		print("Item Drop");
 	}
